@@ -21,7 +21,7 @@ Supported sites and behavior depend on the included `yt-dlp` version and each si
 
 ## Build from source
 
-Requirements: Windows 10 or 11 (64-bit), .NET 8 SDK or newer, and internet access to NuGet and GitHub for the dependency downloads.
+Requirements: Windows 10 or 11 (64-bit), .NET 8 SDK, and internet access to NuGet and GitHub for the dependency downloads. `global.json` selects a compatible .NET 8 SDK for repeatable builds.
 
 1. Clone this repository.
 2. Run `build.bat` from the repository folder.
