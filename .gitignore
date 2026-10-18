@@ -1,0 +1,28 @@
+# .NET build output
+**/bin/
+**/obj/
+
+# Generated publish and installer output
+/dist/
+/installer/Output/
+
+# Downloaded third-party tools (fetched by build.bat)
+/tools/aria2/
+/tools/deno/
+/tools/ffmpeg/
+/tools/yt-dlp/
+
+# Local application data
+**/data/
+*.db
+*.db-shm
+*.db-wal
+*.log
+
+# IDE and operating-system files
+.vs/
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+

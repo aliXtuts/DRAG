@@ -1,0 +1,62 @@
+<UserControl x:Class="DRAQ.Views.DownloadView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20" MaxWidth="900" HorizontalAlignment="Left">
+            <TextBlock Text="Download one file or video" FontSize="20" FontWeight="SemiBold" Margin="3,0,0,2" />
+            <TextBlock Foreground="{DynamicResource Muted}" Margin="3,0,0,14" TextWrapping="Wrap"
+                       Text="Paste a link (direct file, video page, magnet link or .torrent address), choose a folder and press Start Download." />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="UrlBox" FontSize="14" TextChanged="UrlBox_TextChanged" />
+                <Button Grid.Column="1" Content="Paste" Click="Paste_Click" />
+                <Button Grid.Column="2" Content="Check link" Click="Analyze_Click" />
+            </Grid>
+
+            <Border Background="{DynamicResource PanelBg}" CornerRadius="4" Padding="10" Margin="3,8,3,4">
+                <TextBlock x:Name="InfoText" TextWrapping="Wrap" Text="Nothing checked yet." />
+            </Border>
+
+            <StackPanel x:Name="VideoOptions" Visibility="Collapsed" Margin="0,6,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Quality" VerticalAlignment="Center" Margin="3" />
+                    <ComboBox x:Name="QualityBox" Grid.Column="1" />
+                    <TextBlock Text="Audio" Grid.Row="1" VerticalAlignment="Center" Margin="3" />
+                    <ComboBox x:Name="AudioBox" Grid.Row="1" Grid.Column="1" />
+                    <TextBlock Text="Subtitles" Grid.Row="2" VerticalAlignment="Center" Margin="3" />
+                    <ComboBox x:Name="SubsBox" Grid.Row="2" Grid.Column="1" />
+                </Grid>
+            </StackPanel>
+
+            <TextBlock Text="Save to" Margin="3,14,0,0" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="DestBox" TextChanged="DestBox_TextChanged" />
+                <Button Grid.Column="1" Content="Browse..." Click="Browse_Click" />
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+                <Button x:Name="StartButton" Content="Start Download" Padding="22,9" FontSize="14" FontWeight="SemiBold" Click="Start_Click" />
+                <TextBlock x:Name="BusyText" VerticalAlignment="Center" Margin="12,0,0,0" Foreground="{DynamicResource Muted}" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
+

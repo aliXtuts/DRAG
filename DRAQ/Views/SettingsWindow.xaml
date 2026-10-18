@@ -1,0 +1,108 @@
+<Window x:Class="DRAQ.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DRAQ Settings" Width="720" Height="760" MinHeight="500"
+        WindowStartupLocation="CenterOwner">
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+            <Button Content="Save" Padding="26,6" FontWeight="SemiBold" Click="Save_Click" />
+            <Button Content="Cancel" Click="Cancel_Click" />
+        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <GroupBox Header="Downloads" Padding="6" Margin="0,0,0,8">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="190" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition />
+                            <RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Default download folder" VerticalAlignment="Center" Margin="3" />
+                        <TextBox x:Name="DownloadFolderBox" Grid.Column="1" />
+                        <Button Grid.Column="2" Content="Browse..." Click="BrowseDownload_Click" />
+                        <TextBlock Text="Dramas folder" Grid.Row="1" VerticalAlignment="Center" Margin="3" />
+                        <TextBox x:Name="DramasFolderBox" Grid.Row="1" Grid.Column="1" />
+                        <Button Grid.Row="1" Grid.Column="2" Content="Browse..." Click="BrowseDramas_Click" />
+                        <TextBlock Text="Series folder" Grid.Row="2" VerticalAlignment="Center" Margin="3" />
+                        <TextBox x:Name="SeriesFolderBox" Grid.Row="2" Grid.Column="1" />
+                        <Button Grid.Row="2" Grid.Column="2" Content="Browse..." Click="BrowseSeries_Click" />
+                        <TextBlock Text="Torrents folder" Grid.Row="3" VerticalAlignment="Center" Margin="3" />
+                        <TextBox x:Name="TorrentsFolderBox" Grid.Row="3" Grid.Column="1" />
+                        <Button Grid.Row="3" Grid.Column="2" Content="Browse..." Click="BrowseTorrents_Click" />
+                        <TextBlock Text="Max simultaneous downloads" Grid.Row="4" VerticalAlignment="Center" Margin="3" />
+                        <TextBox x:Name="MaxBox" Grid.Row="4" Grid.Column="1" Width="70" HorizontalAlignment="Left" />
+                        <TextBlock Text="Speed limit (KB/s, 0 = unlimited)" Grid.Row="5" VerticalAlignment="Center" Margin="3" />
+                        <TextBox x:Name="SpeedBox" Grid.Row="5" Grid.Column="1" Width="90" HorizontalAlignment="Left" />
+                        <TextBlock Text="Retry count" Grid.Row="6" VerticalAlignment="Center" Margin="3" />
+                        <TextBox x:Name="RetryBox" Grid.Row="6" Grid.Column="1" Width="70" HorizontalAlignment="Left" />
+                        <TextBlock Text="Default video quality" Grid.Row="7" VerticalAlignment="Center" Margin="3" />
+                        <ComboBox x:Name="QualityBox" Grid.Row="7" Grid.Column="1" Width="160" HorizontalAlignment="Left" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Notifications" Padding="6" Margin="0,0,0,8">
+                    <StackPanel>
+                        <CheckBox x:Name="NotifyDoneBox" Content="Download completed (and queue completed)" />
+                        <CheckBox x:Name="NotifyFailBox" Content="Download failed" />
+                        <CheckBox x:Name="NotifyNewBox" Content="New episode available" />
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Automation" Padding="6" Margin="0,0,0,8">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox x:Name="AutoCheckBox" Content="Check for new episodes automatically every" />
+                            <TextBox x:Name="AutoHoursBox" Width="50" />
+                            <TextBlock Text="hours" VerticalAlignment="Center" Margin="4,0,0,0" />
+                        </StackPanel>
+                        <TextBlock Foreground="{DynamicResource Muted}" TextWrapping="Wrap" Margin="4,2,0,0"
+                                   Text="'Automatically queue new episodes' is chosen separately for each drama/series in the New Episodes tab (off by default)." />
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Startup and tray" Padding="6" Margin="0,0,0,8">
+                    <StackPanel>
+                        <CheckBox x:Name="StartWinBox" Content="Start DRAQ with Windows" />
+                        <CheckBox x:Name="StartMinBox" Content="Start minimized to the system tray" />
+                        <CheckBox x:Name="TrayBox" Content="Minimize to the system tray" />
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Completion" Padding="6" Margin="0,0,0,8">
+                    <CheckBox x:Name="ShutdownBox" Content="Shut down the PC after the queue completes (you get a 60 second chance to cancel)" />
+                </GroupBox>
+
+                <GroupBox Header="File handling" Padding="6" Margin="0,0,0,8">
+                    <StackPanel>
+                        <CheckBox x:Name="NoOverwriteBox" Content="Never overwrite existing files (recommended - adds (2), (3)... instead)" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="When an item is already in the queue or downloaded:" VerticalAlignment="Center" Margin="4,0,6,0" />
+                            <ComboBox x:Name="DupBox" Width="150" />
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Database and tools" Padding="6" Margin="0,0,0,8">
+                    <StackPanel>
+                        <WrapPanel>
+                            <Button Content="Back up database..." Click="Backup_Click" />
+                            <Button Content="Restore database..." Click="Restore_Click" />
+                            <Button Content="Open data folder" Click="OpenData_Click" />
+                            <Button Content="Open log folder" Click="OpenLogs_Click" />
+                        </WrapPanel>
+                        <WrapPanel>
+                            <Button Content="Show tool versions" Click="Versions_Click" />
+                            <Button Content="Update yt-dlp" Click="UpdateYt_Click" ToolTip="Video sites change often; updating yt-dlp fixes most 'cannot download' problems." />
+                        </WrapPanel>
+                        <TextBlock x:Name="ToolText" Foreground="{DynamicResource Muted}" TextWrapping="Wrap" Margin="4,2,0,0" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>
+

@@ -1,0 +1,71 @@
+<UserControl x:Class="DRAQ.Views.NewEpisodesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="170" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0" Margin="0,0,0,4">
+            <Button x:Name="CheckButton" Content="Check for New Episodes" Padding="18,6" FontWeight="SemiBold" Click="Check_Click" />
+            <CheckBox x:Name="ShowCompletedBox" Content="Show completed" Click="ShowCompleted_Click" />
+            <TextBlock x:Name="StatusText" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Muted}" />
+        </WrapPanel>
+
+        <DataGrid x:Name="ShowsGrid" Grid.Row="1" IsReadOnly="False" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name, Mode=OneWay}" IsReadOnly="True" Width="*" />
+                <DataGridTextColumn Header="Type" Binding="{Binding KindText, Mode=OneWay}" IsReadOnly="True" Width="70" />
+                <DataGridTextColumn Header="Last checked" Binding="{Binding LastCheckedText, Mode=OneWay}" IsReadOnly="True" Width="140" />
+                <DataGridTextColumn Header="Folder" Binding="{Binding Folder, Mode=OneWay}" IsReadOnly="True" Width="2*" />
+                <DataGridTemplateColumn Header="Automatically queue new episodes" Width="210">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding AutoQueue, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Mark as Complete" Width="130">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Complete, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Grid.Row="2" Text="New episodes found (not downloaded and not queued)" FontWeight="SemiBold" Margin="3,10,0,4" />
+
+        <DataGrid x:Name="ResultsGrid" Grid.Row="3" CanUserSortColumns="True">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="" Width="34">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Drama / Series" Binding="{Binding ShowName, Mode=OneWay}" IsReadOnly="True" Width="160" />
+                <DataGridTextColumn Header="Season" Binding="{Binding SeasonText, Mode=OneWay}" IsReadOnly="True" Width="60" />
+                <DataGridTextColumn Header="Episode" Binding="{Binding EpisodeText, Mode=OneWay}" IsReadOnly="True" Width="65" />
+                <DataGridTextColumn Header="Original title" Binding="{Binding Title, Mode=OneWay}" IsReadOnly="True" Width="*" />
+                <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" IsReadOnly="True" Width="60" />
+                <DataGridTextColumn Header="Link" Binding="{Binding Url, Mode=OneWay}" IsReadOnly="True" Width="200" />
+                <DataGridTextColumn Header="Destination folder" Binding="{Binding DestFolder, Mode=OneWay}" IsReadOnly="True" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <WrapPanel Grid.Row="4" Margin="0,6,0,0">
+            <Button Content="Select All" Click="SelectAll_Click" />
+            <Button Content="Select None" Click="SelectNone_Click" />
+            <Button Content="Add Selected to Queue" Padding="18,5" FontWeight="SemiBold" Click="AddSelected_Click" />
+            <Button Content="Ignore Selected" Click="Ignore_Click" ToolTip="Stop reporting these episodes as new (they stay in the drama's list as 'Not downloaded')" />
+        </WrapPanel>
+    </Grid>
+</UserControl>
+

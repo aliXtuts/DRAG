@@ -1,0 +1,41 @@
+<Window x:Class="DRAQ.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:DRAQ.Views"
+        Title="DRAQ - Download, Resume, Arrange &amp; Queue"
+        Width="1200" Height="760" MinWidth="960" MinHeight="580"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Background="{DynamicResource PanelBg}" BorderBrush="{DynamicResource ControlBorder}" BorderThickness="0,1,0,0" Padding="12,5">
+            <TextBlock x:Name="StatusText" Foreground="{DynamicResource Muted}" Text="Ready" />
+        </Border>
+        <Grid>
+            <TabControl x:Name="Tabs" Margin="6">
+                <TabItem Header="Download">
+                    <views:DownloadView x:Name="DownloadTab" />
+                </TabItem>
+                <TabItem Header="Queue">
+                    <views:QueueView x:Name="QueueTab" />
+                </TabItem>
+                <TabItem Header="Dramas">
+                    <views:ShowsView x:Name="DramasTab" Kind="drama" />
+                </TabItem>
+                <TabItem Header="Torrents">
+                    <views:TorrentsView x:Name="TorrentsTab" />
+                </TabItem>
+                <TabItem Header="Series">
+                    <views:ShowsView x:Name="SeriesTab" Kind="series" />
+                </TabItem>
+                <TabItem Header="New Episodes">
+                    <views:NewEpisodesView x:Name="NewEpisodesTab" />
+                </TabItem>
+            </TabControl>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,12,0">
+                <Button Content="History" Click="History_Click" />
+                <Button Content="Settings" Click="Settings_Click" />
+                <Button x:Name="ThemeButton" Click="Theme_Click" />
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>
+

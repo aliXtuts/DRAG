@@ -2,11 +2,11 @@
 
 **Download, Resume, Arrange & Queue** is a Windows desktop app for managing video, file, playlist, and torrent downloads in one queue.
 
-> **Version 1.0.0 — first release.** This is the first version, so bugs are possible. I’m actively working on improvements. Please report issues through [GitHub Issues](https://github.com/aliXtuts/DRAQ/issues).
+> **Version 1.0.0 — first release.** This is the first version, so bugs are possible. I’m actively working on improvements. Please report issues through [GitHub Issues](https://github.com/aliXtuts/DRAG/issues).
 
 ## Download
 
-Download the latest `DRAQ-Setup.exe` from [GitHub Releases](https://github.com/aliXtuts/DRAQ/releases). The installer includes the app and its required utilities; users do not need to download a separate utilities ZIP or install .NET.
+Download the latest `DRAQ-Setup.exe` from [GitHub Releases](https://github.com/aliXtuts/DRAG/releases). The installer includes the app and its required utilities; users do not need to download a separate utilities ZIP or install .NET.
 
 The release workflow also creates `DRAQ-Portable-win-x64.zip`. Extract it and run `DRAQ.exe` to use the portable build without installing it. Keep the whole extracted folder together.
 

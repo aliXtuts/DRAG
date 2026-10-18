@@ -1,0 +1,92 @@
+<UserControl x:Class="DRAQ.Views.ShowsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="270" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- saved list -->
+        <DockPanel Grid.Column="0">
+            <TextBlock x:Name="ListTitle" DockPanel.Dock="Top" FontWeight="SemiBold" FontSize="14" Margin="3,0,0,4" />
+            <StackPanel DockPanel.Dock="Bottom">
+                <CheckBox x:Name="ShowCompletedBox" Content="Show completed" Click="ShowCompleted_Click" />
+                <CheckBox x:Name="AutoQueueBox" Content="Automatically queue new episodes" Click="AutoQueue_Click" TextBlock.FontSize="12" />
+                <Button x:Name="CompleteButton" Content="Mark as Complete" Click="Complete_Click" />
+                <Button Content="Rename Episodes..." Click="Rename_Click" />
+                <Button Content="Open folder" Click="OpenFolder_Click" />
+                <Button Content="Import existing folder..." Click="Import_Click" />
+                <Button Content="Remove from list" Click="RemoveShow_Click" ToolTip="Forget this entry in DRAQ. Files on disk are never deleted." />
+            </StackPanel>
+            <ListBox x:Name="ShowList" DisplayMemberPath="Display" SelectionChanged="ShowList_SelectionChanged" />
+        </DockPanel>
+
+        <!-- parse + episodes -->
+        <DockPanel Grid.Column="2">
+            <Grid DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Name="NameLabel" Text="Name" VerticalAlignment="Center" Margin="3" />
+                <TextBox x:Name="NameBox" Grid.Column="1" TextChanged="NameBox_TextChanged" />
+                <StackPanel x:Name="SeasonPanel" Grid.Column="2" Orientation="Horizontal" Visibility="Collapsed">
+                    <TextBlock Text="Season" VerticalAlignment="Center" Margin="6,0,2,0" />
+                    <TextBox x:Name="SeasonBox" Width="50" Text="1" TextChanged="SeasonBox_TextChanged" />
+                </StackPanel>
+
+                <TextBlock Text="Playlist link" Grid.Row="1" VerticalAlignment="Center" Margin="3" />
+                <TextBox x:Name="UrlBox" Grid.Row="1" Grid.Column="1" />
+                <Button Grid.Row="1" Grid.Column="2" Content="Paste" Click="Paste_Click" />
+
+                <TextBlock Text="Save to" Grid.Row="2" VerticalAlignment="Center" Margin="3" />
+                <TextBox x:Name="DestBox" Grid.Row="2" Grid.Column="1" TextChanged="DestBox_TextChanged" />
+                <Button Grid.Row="2" Grid.Column="2" Content="Browse..." Click="Browse_Click" />
+
+                <TextBlock Text="Quality" Grid.Row="3" VerticalAlignment="Center" Margin="3" />
+                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                    <ComboBox x:Name="QualityBox" Width="150" />
+                    <Button x:Name="ParseButton" Content="Parse Playlist" Padding="18,5" FontWeight="SemiBold" Click="Parse_Click" />
+                    <TextBlock x:Name="StatusText" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Muted}" TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+
+            <WrapPanel DockPanel.Dock="Bottom" Margin="0,6,0,0">
+                <Button Content="Select All" Click="SelectAll_Click" />
+                <Button Content="Select None" Click="SelectNone_Click" />
+                <Button Content="Add Selected to Queue" Padding="18,5" FontWeight="SemiBold" Click="AddSelected_Click" />
+                <Button Content="Go to Queue" Click="GoQueue_Click" />
+                <TextBlock x:Name="CountText" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{DynamicResource Muted}" />
+            </WrapPanel>
+
+            <DataGrid x:Name="ItemsGrid" Margin="0,8,0,0" CanUserSortColumns="True">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="" Width="34" SortMemberPath="IsSelected">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanSelect, Mode=OneWay}" HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Playlist #" Binding="{Binding Position, Mode=OneWay}" IsReadOnly="True" Width="70" />
+                    <DataGridTextColumn x:Name="SeasonColumn" Header="Season" Binding="{Binding Season, Mode=OneWay}" IsReadOnly="True" Width="60" Visibility="Collapsed" />
+                    <DataGridTextColumn Header="Episode (editable)" Binding="{Binding EpisodeText, UpdateSourceTrigger=LostFocus}" Width="110" SortMemberPath="EpisodeNumber" />
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneWay}" IsReadOnly="True" Width="*" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status, Mode=OneWay}" IsReadOnly="True" Width="105" />
+                    <DataGridTextColumn Header="Original link" Binding="{Binding Url, Mode=OneWay}" IsReadOnly="True" Width="220" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</UserControl>
+
